@@ -1,0 +1,48 @@
+[gd_scene format=3 uid="uid://b4p2nwktn5e4g"]
+
+[ext_resource type="PackedScene" uid="uid://d4nb212ytueiu" path="res://Scenes/bg.tscn" id="1_bgln1"]
+[ext_resource type="Script" uid="uid://ddh2ubnvgxyf5" path="res://Scripts/shape_body.gd" id="2_bgln1"]
+[ext_resource type="Script" uid="uid://bk5g28u2udl1t" path="res://Scripts/better_jump_player.gd" id="3_b3ka6"]
+[ext_resource type="Texture2D" uid="uid://dy22dhurstbre" path="res://Art/Sprites/character.png" id="4_mcjd2"]
+
+[sub_resource type="Curve2D" id="Curve2D_7nxbv"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -209, 322, 0, 0, 0, 0, 450, 321, 0, 0, 0, 0, 450, 453, 0, 0, 0, 0, 963, 453, 0, 0, 0, 0, 965, 192, 0, 0, 0, 0, 1559, 195, 0, 0, 0, 0, 1565, 736, 0, 0, 0, 0, -213, 736, 0, 0, 0, 0, -213, 322)
+}
+point_count = 9
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_22t55"]
+radius = 31.0
+height = 122.0
+
+[node name="BetterJump" type="Node2D" unique_id=608847228]
+
+[node name="BG" parent="." unique_id=479381507 instance=ExtResource("1_bgln1")]
+
+[node name="Path2D" type="Path2D" parent="." unique_id=1246172481]
+position = Vector2(163, 171)
+curve = SubResource("Curve2D_7nxbv")
+script = ExtResource("2_bgln1")
+line_width = 10.0
+polygon_color = Color(0.19107398, 0.24030071, 0.20973301, 1)
+
+[node name="Player" type="CharacterBody2D" parent="." unique_id=2030518670 node_paths=PackedStringArray("sprite")]
+position = Vector2(153, 417)
+script = ExtResource("3_b3ka6")
+sprite = NodePath("Sprite")
+stretch_intensity = 0.001
+
+[node name="Sprite" type="Node2D" parent="Player" unique_id=1042886830]
+
+[node name="Shadow" type="Sprite2D" parent="Player/Sprite" unique_id=230758533]
+modulate = Color(0, 0, 0, 0.27450982)
+position = Vector2(-10, 0)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_mcjd2")
+
+[node name="Body" type="Sprite2D" parent="Player/Sprite" unique_id=467498600]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_mcjd2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player" unique_id=1480564701]
+shape = SubResource("CapsuleShape2D_22t55")
